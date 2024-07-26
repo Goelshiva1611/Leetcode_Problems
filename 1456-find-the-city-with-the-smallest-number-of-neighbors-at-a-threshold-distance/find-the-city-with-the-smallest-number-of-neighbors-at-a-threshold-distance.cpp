@@ -1,46 +1,37 @@
 class Solution {
 public:
     int findTheCity(int n, vector<vector<int>>& edges, int distanceThreshold) {
-        ios_base::sync_with_stdio(false);
-
         vector<vector<int>> dist(n, vector<int>(n, INT_MAX));
-        for(vector<int> e: edges){
-            dist[e[0]][e[1]]=e[2];
-            dist[e[1]][e[0]]=e[2];
+        for (auto it : edges) {
+            dist[it[0]][it[1]] = it[2];
+            dist[it[1]][it[0]] = it[2];
         }
-
-        for(int i=0; i<n; i++){
-            dist[i][i]=0;
+        for (int i = 0; i < n; i++) {
+            dist[i][i] = 0;
         }
-
-        for(int k=0; k<n; k++){
-            for(int i=0; i<n; i++){
-                for(int j=0; j<n; j++){
-                    if(dist[i][k]==INT_MAX || dist[j][k]==INT_MAX){
+        for (int k = 0; k < n; k++) {
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    if (dist[i][k] == INT_MAX || dist[k][j] == INT_MAX)
                         continue;
-                    }
-
-                    dist[i][j]=min(dist[i][j], dist[i][k]+dist[k][j]);
+                    dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);
                 }
             }
         }
-
-        int minCity=INT_MAX;
-        int cityNo=-1;
-        for(int i=0; i<n; i++){
-            int c=0;
-            for(int j=0; j<n; j++){
-                if(dist[i][j]<=distanceThreshold){
-                    c++;
+        int citymax = n;
+        int cityno;
+        for (int i = 0; i < n; i++) {
+            int count = 0;
+            for (int j = 0; j < n; j++) {
+                if (dist[i][j] <= distanceThreshold) {
+                    count++;
                 }
             }
-
-            if(c<=minCity){
-                minCity=c;
-                cityNo=i;
+            if (count <= citymax) {
+                citymax = count;
+                cityno = i;
             }
         }
-
-        return cityNo;
+        return cityno;
     }
 };
