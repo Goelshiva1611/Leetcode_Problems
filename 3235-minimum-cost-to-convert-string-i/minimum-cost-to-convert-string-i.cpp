@@ -10,6 +10,7 @@ public:
         for (int i = 0; i < original.size(); i++) {
             edges.push_back({original[i] - 'a', changed[i] - 'a', cost[i]});
         }
+        // make the edges vector;
 
         vector<vector<int>> dist(n, vector<int>(n, INT_MAX));
 
@@ -20,6 +21,7 @@ public:
         for (int i = 0; i < n; i++) {
             dist[i][i] = 0;
         }
+        // successfully make the D^0 matrix;
 
         for (int k = 0; k < n; k++) {
             for (int i = 0; i < n; i++) {
@@ -30,8 +32,9 @@ public:
                 }
             }
         }
+        // floyd's warshall complete means successfully find all the shortest distances from all edges like 0 ki 1 se 2 se 3 se same for 1 ki 0 se 2 se 3 se 2 ki 0 se 1 se 3 se ;
 
-        long long  finalcost = 0;
+        long long finalcost = 0;
         for (int i = 0; i < source.size(); i++) {
             if (source[i] == target[i]) {
                 continue;
@@ -41,6 +44,7 @@ public:
             }
             finalcost += dist[source[i] - 'a'][target[i] - 'a'];
         }
+        // if same tab to tum kuch mat karo but if differ add cost anf if intmax is cost then return -1;
 
         return finalcost;
     }
