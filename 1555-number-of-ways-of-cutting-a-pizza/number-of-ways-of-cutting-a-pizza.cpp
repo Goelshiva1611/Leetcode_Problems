@@ -1,13 +1,6 @@
-//Recursion + Memoization - ACCEPTED
 class Solution {
 public:
-    /*
-        dp[i][j][k] =  number of unique ways to cut mat[i..m-1][j..n-1] into k pieces so that each piece has atleast one apple , 
-        
-        apples[i][j] = number of apples on mat[i..m-1][j..n-1]. 
-        Because after cutting, we always have the down-right corner of the matrix left, so this setting is valid.
-    */
-    
+
     int m, n;
     int apples[55][55];
     vector<vector<vector<int>>>dp;
@@ -61,7 +54,7 @@ public:
                 apples[i][j] = apples[i][j+1];
                 
                 for(int l = i; l<m; l++) {
-                    apples[i][j] += (pizza[l][j]=='A');
+                    apples[i][j] += (pizza[l][j]=='A')?1:0;
                 }
                 
             }
