@@ -26,13 +26,13 @@ public:
         if(dp[i][j][k] != -1)
             return dp[i][j][k];
         
-        dp[i][j][k] = 0;
+        int ans= 0;
         
         for (int h = i + 1; h < m; h++) {
             
             if (apples[i][j] - apples[h][j] > 0 && apples[h][j] >= k - 1) {
                 
-                dp[i][j][k] = (dp[i][j][k] % MOD + solve(h, j, k - 1) % MOD) % MOD;
+                ans = (ans% MOD + solve(h, j, k - 1) % MOD) % MOD;
                 
             }
         }
@@ -40,11 +40,11 @@ public:
         for (int v = j + 1; v < n; v++) {
             
             if (apples[i][j] - apples[i][v] > 0 && apples[i][v] >= k - 1) {
-                dp[i][j][k] = (dp[i][j][k] % MOD + solve(i, v, k - 1) % MOD) % MOD;
+                ans = (ans% MOD + solve(i, v, k - 1) % MOD) % MOD;
             }
         }
 
-        return dp[i][j][k];
+        return dp[i][j][k]=ans;
         
     }
     
