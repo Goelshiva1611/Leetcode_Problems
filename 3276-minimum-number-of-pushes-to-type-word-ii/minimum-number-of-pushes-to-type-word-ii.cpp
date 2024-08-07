@@ -10,11 +10,11 @@ public:
         for (auto it : mp) {
             v.push_back({it.second, it.first});
         }
-        sort(v.begin(), v.end());
+        sort(v.rbegin(), v.rend());
         int t = 1;
         int p = 0;
         int sum = 0;
-        for (int i = v.size() - 1; i >= 0; i--) {
+        for (int i = 0; i < v.size(); i++) {
             if (p == 8) {
                 p = 0;
                 t++;
