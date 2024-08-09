@@ -5,15 +5,13 @@ public:
         set<int> uniqueNumbers;
         for (int i = row; i < row + 3; i++) {
             for (int j = col; j < col + 3; j++) {
-                if(uniqueNumbers.find(grid[i][j])!=uniqueNumbers.end())
-                {
+                if (uniqueNumbers.find(grid[i][j]) != uniqueNumbers.end()) {
                     return false;
                 }
-                if (grid[i][j] < 1 || grid[i][j] > 9 ) {
+                if (grid[i][j] < 1 || grid[i][j] > 9) {
                     return false;
                 }
                 uniqueNumbers.insert(grid[i][j]);
-
             }
         }
 
