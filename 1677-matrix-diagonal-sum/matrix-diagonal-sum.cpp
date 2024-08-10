@@ -5,13 +5,10 @@ public:
         if (n == 1) {
             return mat[0][0];
         }
-        
+        int j = n - 1;
         int ans = 0;
         for (int i = 0; i < n; i++) {
             ans += mat[i][i];
-        }
-        int j = n - 1;
-        for (int i = 0; i < n; i++) {
             if (i != j)
                 ans += mat[i][j];
             j--;
