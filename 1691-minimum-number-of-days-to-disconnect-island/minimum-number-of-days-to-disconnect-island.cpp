@@ -1,43 +1,55 @@
 class Solution {
 public:
-    int minDays(vector<vector<int>>& grid) {
-        auto count_islands = [&]() -> int {
-            vector<vector<int>> seen(grid.size(), vector<int>(grid[0].size(), 0));
-            int islands = 0;
-            
-            function<void(int, int)> dfs = [&](int r, int c) {
-                seen[r][c] = 1;
-                for (auto [dr, dc] : {pair{-1, 0}, {1, 0}, {0, -1}, {0, 1}}) {
-                    int nr = r + dr, nc = c + dc;
-                    if (nr >= 0 && nr < grid.size() && nc >= 0 && nc < grid[0].size() && grid[nr][nc] == 1 && !seen[nr][nc]) {
-                        dfs(nr, nc);
-                    }
-                }
-            };
-            
-            for (int i = 0; i < grid.size(); i++) {
-                for (int j = 0; j < grid[0].size(); j++) {
-                    if (grid[i][j] == 1 && !seen[i][j]) {
-                        islands++;
-                        dfs(i, j);
-                    }
-                }
-            }
-            return islands;
-        };
-        
-        if (count_islands() != 1) return 0;
-        
-        for (int i = 0; i < grid.size(); i++) {
-            for (int j = 0; j < grid[0].size(); j++) {
-                if (grid[i][j] == 1) {
-                    grid[i][j] = 0;
-                    if (count_islands() != 1) return 1;
-                    grid[i][j] = 1;
+    void dfs(vector<vector<int>>& grid, int i, int j,
+             vector<vector<bool>>& visited) {
+        int n = grid.size();
+        int m = grid[0].size();
+        if (i < 0 || i >= n || j < 0 || j >= m || grid[i][j] == 0 ||
+            visited[i][j]) {
+            return;
+        }
+        visited[i][j] = true;
+        dfs(grid, i + 1, j, visited);
+        dfs(grid, i - 1, j, visited);
+        dfs(grid, i, j + 1, visited);
+        dfs(grid, i, j - 1, visited);
+    }
+    int numberofislands(vector<vector<int>>& grid) {
+        int n = grid.size();
+        int m = grid[0].size();
+        vector<vector<bool>> visited(n, vector<bool>(m, false));
+        int island = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (visited[i][j] == false && grid[i][j] == 1) {
+                    dfs(grid, i, j, visited);
+                    island++;
                 }
             }
         }
-        
+        return island;
+    }
+    int minDays(vector<vector<int>>& grid) {
+
+        int n = grid.size();
+        int m = grid[0].size();
+        int island = numberofislands(grid);
+        if (island > 1 || island == 0) {
+            return 0;
+        } else {
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < m; j++) {
+                    if (grid[i][j] == 1) {
+                        grid[i][j] = 0;
+                        int t = numberofislands(grid);
+                        if (t > 1 || t == 0) {
+                            return 1;
+                        }
+                        grid[i][j] = 1;
+                    }
+                }
+            }
+        }
         return 2;
     }
 };
