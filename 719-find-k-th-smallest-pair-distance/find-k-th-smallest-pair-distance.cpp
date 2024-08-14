@@ -11,6 +11,8 @@ public:
                 v[x]++;
             }
         }
+
+        // also used nth element stl will also work but main soltion is via sliding window and binary search
         int ans;
         for (int i = 0; i <p+1; i++) {
             k = k - v[i];
