@@ -2,12 +2,12 @@ class Solution {
 private:
     int targetLength;
 
-    int findMinSteps(int currentLength, int clipboardLength) {
+    long long int findMinSteps(long long int currentLength, long long int clipboardLength) {
         if (currentLength == targetLength) return 0;
-        if (currentLength > targetLength) return INT_MAX / 2;
+        if (currentLength > targetLength) return INT_MAX ;
 
-        int copyAndPaste = 2 + findMinSteps(currentLength * 2, currentLength);
-        int pasteOnly = 1 + findMinSteps(currentLength + clipboardLength, clipboardLength);
+        long long  copyAndPaste = 2 + findMinSteps(currentLength * 2, currentLength);
+        long long  pasteOnly = 1 + findMinSteps(currentLength + clipboardLength, clipboardLength);
 
         return std::min(copyAndPaste, pasteOnly);
     }
