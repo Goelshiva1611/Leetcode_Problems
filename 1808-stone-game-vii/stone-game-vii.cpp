@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int dp[1001][1001];
+    vector<vector<int>>dp;
     int solve(vector<int>& stones, int i, int j, int sum){
         if(i>=j){
             return 0;
@@ -11,10 +11,10 @@ public:
         if(dp[i][j]!=-1){
             return dp[i][j];
         }
-        int choose_front = sum-stones[i]-solve(stones,i+1,j,sum-stones[i]);
-        int choose_back = sum-stones[j]-solve(stones,i,j-1,sum-stones[j]);
+        int front = sum-stones[i]-solve(stones,i+1,j,sum-stones[i]);
+        int back = sum-stones[j]-solve(stones,i,j-1,sum-stones[j]);
         
-        int profit = max(choose_front,choose_back);
+        int profit = max(front,back);
         return dp[i][j] = profit;
     }
     int stoneGameVII(vector<int>& stones) {
@@ -23,7 +23,8 @@ public:
         for(int i=0;i<n;i++){
             sum+=stones[i];
         }
-        memset(dp,-1,sizeof(dp));
+        dp.clear();
+        dp.resize(1001,vector<int>(1001,-1));
         
         int value =  solve(stones,0,n-1,sum);
         return value;
