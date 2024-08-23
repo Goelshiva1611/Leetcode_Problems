@@ -9,7 +9,7 @@ public:
             int currentnum = 0;
             int currentden = 0;
             bool negative = (expression[i] == '-');
-            while (i < n && (expression[i] == '-' || expression[i] == '+')) {
+            if (i < n && (expression[i] == '-' || expression[i] == '+')) {
                 i++;
             }
             while (i < n && isdigit(expression[i])) {
