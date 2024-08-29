@@ -1,8 +1,5 @@
 class Solution {
 public:
-    // most stones removed from same row and same column;
-    // on a 2D plane
-    // stones of length n where stones[i]=[xi,yi];
     int n;
     void dfs(int index, vector<bool> &visited, vector<vector<int>> &stones) {
         visited[index] = true;
