@@ -2,12 +2,6 @@ class Solution {
 public:
     vector<int> missingRolls(vector<int>& rolls, int mean, int n) {
 
-        vector<int> v;
-        for (int i = 0; i < 6; i++) {
-            for (int j = 0; j < n; j++) {
-                v.push_back(i + 1);
-            }
-        }
         int sum = 0;
         for (int i = 0; i < rolls.size(); i++) {
             sum += rolls[i];
@@ -15,6 +9,21 @@ public:
         cout << sum;
         int num = mean * (rolls.size() + n);
         int remain = num - sum;
+        vector<int> v;
+        map<int, int> mp;
+        for (int i = 1; i <= 6; i++) {
+            mp[i] = remain / i;
+        }
+        for (auto& it : mp) {
+            int a = it.first;
+            int b = it.second;
+            cout << a;
+            cout << b;
+            cout << endl;
+            for (int i = 0; i < b; i++) {
+                v.push_back(a);
+            }
+        }
         cout << num;
         if (remain <= 0) {
             return {};
@@ -31,14 +40,15 @@ public:
             bool flag = false;
             while (r < v.size()) {
                 if (t == remain) {
-                    cout << "hello";
+                    cout << "hevhgjfghllo";
                     flag = true;
                     break;
                 }
                 t = t - v[l];
                 l++;
                 r++;
-                t = t + v[r];
+                if (r != v.size())
+                    t = t + v[r];
             }
             if (flag == true) {
                 vector<int> answer;
@@ -51,5 +61,8 @@ public:
             }
         }
         return {};
+
+        // you can also use vector directly and push 6 laks values in the worst
+        // case.. unordered map ke use se it become slighly optimized not full;
     }
 };
