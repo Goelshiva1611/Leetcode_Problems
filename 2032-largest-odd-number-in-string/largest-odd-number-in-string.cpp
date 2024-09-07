@@ -8,9 +8,6 @@ public:
                 break;
             }
         }
-        string p = "";
-        for (int j = 0; j <= t; j++)
-            p += num[j];
-        return p;
+        return num.substr(0, t + 1);
     }
 };
