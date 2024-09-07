@@ -1,22 +1,31 @@
+
 class Solution {
 public:
+    vector<vector<int>> v;
+    bool pathall(TreeNode* root, ListNode* head) {
+        if (head == nullptr)
+            return true;
+        if (root == nullptr)
+            return false;
+        if (head->val != root->val)
+            return false;
+        bool a = pathall(root->left, head->next);
+        bool b = pathall(root->right, head->next);
+        return a || b;
+    }
+    bool finalpath(TreeNode* root, ListNode* head) {
+
+        if (root == nullptr) {
+            return false;
+        }
+        bool a = pathall(root, head);
+        bool b = finalpath(root->left, head);
+        bool c = finalpath(root->right, head);
+        return a || b || c;
+    }
     bool isSubPath(ListNode* head, TreeNode* root) {
-        if (!root) return false;
-        return dfs(root, head);
-    }
-    
-private:
-    bool dfs(TreeNode* node, ListNode* head) {
-        if (!node) return false;
-        return checkPath(node, head) || dfs(node->left, head) || dfs(node->right, head);
-    }
-    
-    bool checkPath(TreeNode* node, ListNode* head) {
-        if (!head) return true;
-        if (!node) return false; 
-        
-        if (node->val != head->val) return false;
-        
-        return checkPath(node->left, head->next) || checkPath(node->right, head->next);
+        if (root == nullptr)
+            return false;
+        return finalpath(root, head);
     }
 };
