@@ -17,9 +17,7 @@ public:
         for (int i = 0; i < k; i++) {
             d = head;
             if (remainder <= 0)
-                t = quo - 1;
-            else
-                t = quo;
+                t -= 1;
             while (t-- && head != nullptr) {
                 head = head->next;
             }
@@ -32,6 +30,7 @@ public:
                 v[q] = d;
             }
             remainder--;
+            t = quo;
         }
         return v;
     }
