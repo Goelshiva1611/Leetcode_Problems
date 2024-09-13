@@ -6,9 +6,7 @@ public:
         int i = 0;
         int j = 0;
         int count = 0;
-        while (j < s.size()) {
-            if (i == g.size())
-                break;
+        while (j < s.size() && i < g.size()) {
             if (s[j] >= g[i]) {
                 count++;
                 i++;
