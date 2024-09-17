@@ -9,17 +9,11 @@ public:
         return ans;
     }
     int minBitFlips(int start, int goal) {
-        string p = dectobin(start);
-        string q = dectobin(goal);
-        int count = 0;
-        if (p.size() < q.size())
-            while (p.size() != q.size())
-                p = '0' + p;
-        else
-            while (p.size() != q.size())
-                q = '0' + q;
-        for (int i = 0; i < q.size(); i++)
-            if (p[i] != q[i])
+        bitset<32>b1(start);
+        bitset<32>b2(goal);
+        int count=0;
+        for (int i = 0; i < b1.size(); i++)
+            if (b1[i] != b2[i])
                 count++;
         return count;
     }
