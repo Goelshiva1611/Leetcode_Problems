@@ -8,6 +8,7 @@ public:
         }
         string q = s;
         s += perm[i];
+        if(s.size()>combinationLength) return ;
         if (s.size() == combinationLength) {
             ans.push_back(s);
         }
