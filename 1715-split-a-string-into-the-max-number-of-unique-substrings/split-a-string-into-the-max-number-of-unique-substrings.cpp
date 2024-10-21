@@ -3,6 +3,10 @@ public:
 
     void solve(unordered_set<string>st,int i,int &maxcount,int currcount,string s)
     {
+        if(currcount+(s.size()-i)<=maxcount)
+        {
+            return;
+        }
         if(i>=s.length())        
         {
             maxcount=max(maxcount,currcount);
