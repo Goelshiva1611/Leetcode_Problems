@@ -5,9 +5,8 @@ public:
     int l = 0;
     int l1 = 0;
     void dfs(TreeNode* root, int parent, int x, int y, int lev, int lev2) {
-        if (root == nullptr) {
+        if (root == nullptr)
             return;
-        }
         if (root->val == x) {
             q = parent;
             l = lev;
@@ -21,14 +20,8 @@ public:
     }
     bool isCousins(TreeNode* root, int x, int y) {
         dfs(root, -1, x, y, 0, 0);
-        cout << q;
-        cout << q1;
-        if (l != l1) {
+        if (l != l1 || q == q1) 
             return false;
-        }
-        if (q == q1) {
-            return false;
-        }
         return true;
     }
 };
