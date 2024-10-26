@@ -15,7 +15,6 @@ public:
             stayScore[day][city] + solve(stayScore, travelScore, city, day + 1);
         int m = 0;
         for (int j = 0; j < x; j++) {
-            if (city != j)
                 m = max(m, travelScore[city][j] +
                                solve(stayScore, travelScore, j, day + 1));
         }
