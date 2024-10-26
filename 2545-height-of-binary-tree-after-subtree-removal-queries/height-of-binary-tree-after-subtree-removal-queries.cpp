@@ -3,11 +3,8 @@ public:
     int height(TreeNode* root, vector<int>& g) {
         if (root == nullptr)
             return 0;
-        int l = height(root->left, g);
-        int r = height(root->right, g);
-        int h = max(l, r) + 1;
-        g[root->val] = h;
-        return h;
+        return g[root->val] =
+                   max(height(root->left, g), height(root->right, g)) + 1;
     }
     unordered_map<int, int> mp;
     void levelorder(TreeNode* root, set<int> st, vector<int> g) {
@@ -15,47 +12,55 @@ public:
         qu.push(root);
         int level = 0;
         while (!qu.empty()) {
-            int size = qu.size();
-            vector<int> levelnodes;
             int maxi = 0;
             int secondmaxi = 0;
+            int size = qu.size();
+            vector<int> levelnodes;
+            vector<int> lheight;
             while (size--) {
                 TreeNode* root1 = qu.front();
                 qu.pop();
-                if (maxi < g[root1->val]) {
-                    secondmaxi = maxi;
-                    maxi = g[root1->val];
-                } else if (secondmaxi < g[root1->val]) {
-                    secondmaxi = g[root1->val];
-                }
+                maxi = max(maxi, g[root1->val]);
                 if (root1->left)
                     qu.push(root1->left);
                 if (root1->right)
                     qu.push(root1->right);
 
                 levelnodes.push_back(root1->val);
-                
+                lheight.push_back(g[root1->val]);
             }
-            for (int i = 0; i < levelnodes.size(); i++) {
-                if (st.find(levelnodes[i]) != st.end()) {
-                    mp[levelnodes[i]] = level + (maxi==g[levelnodes[i]]?secondmaxi:maxi) - 1;
+            int c = 0;
+            for (int i = 0; i < lheight.size(); i++) {
+                if (maxi == lheight[i]) {
+                    c++;
+                }
+                if (lheight[i] > secondmaxi && lheight[i] != maxi) {
+                    secondmaxi = lheight[i];
                 }
             }
+
+            if (c > 1)
+                secondmaxi = maxi;
+
+            for (int i = 0; i < levelnodes.size(); i++)
+                if (st.find(levelnodes[i]) != st.end())
+                    mp[levelnodes[i]] =
+                        level + (maxi == g[levelnodes[i]] ? secondmaxi : maxi) -
+                        1;
             level++;
         }
     }
     vector<int> treeQueries(TreeNode* root, vector<int>& queries) {
-        int h = 0, count = 0;
         vector<int> v;
-        vector<int> g(100001);
         set<int> st;
+        vector<int> g(100001);
+        int h = 0, count = 0;
         height(root, g);
         for (int j = 0; j < queries.size(); j++)
             st.insert(queries[j]);
         levelorder(root, st, g);
-        for (int i = 0; i < queries.size(); i++) {
+        for (int i = 0; i < queries.size(); i++)
             v.push_back(mp[queries[i]]);
-        }
         return v;
     }
 };
