@@ -17,17 +17,12 @@ public:
         if (dp[j][stp] != -1)
             return dp[j][stp];
 
-        long long left = 0;
-        long long right = 0;
         stp -= 1;
-        if (j > 0)
-            left = solve(j - 1, stp);
-        if (j < n - 1)
-            right = solve(j + 1, stp);
-
+        long long left = solve(j - 1, stp);
+        long long right = solve(j + 1, stp);
         long long stay = solve(j, stp);
-        stp+=1;
-        return dp[j][stp] = (left + right + stay) % mod;
+
+        return dp[j][stp + 1] = (left + right + stay) % mod;
     }
     int numWays(int steps, int arrLen) {
         n = arrLen;
