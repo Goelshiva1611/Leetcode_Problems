@@ -1,45 +1,38 @@
 class Solution {
 public:
-    int n, m;
+    int maxmove = 0;
+    int n = 0;
+    int m = 0;
     vector<vector<int>> dp;
-
-    int solve(vector<vector<int>>& grid, int i, int j) {
-        // Out of bounds check
-        if (i >= n || i < 0 || j >= m || j < 0) return 0;
-
-        // If already calculated, use stored result
-        if (dp[i][j] != -1) return dp[i][j];
-
-        int max_moves = 0;
-        int current_value = grid[i][j];
-
-        // Explore the three possible moves to the right
-        if (i > 0 && j + 1 < m && grid[i - 1][j + 1] > current_value) 
-            max_moves = max(max_moves, 1 + solve(grid, i - 1, j + 1));
-        
-        if (j + 1 < m && grid[i][j + 1] > current_value)
-            max_moves = max(max_moves, 1 + solve(grid, i, j + 1));
-
-        if (i + 1 < n && j + 1 < m && grid[i + 1][j + 1] > current_value)
-            max_moves = max(max_moves, 1 + solve(grid, i + 1, j + 1));
-
-        // Store the result in dp array
-        dp[i][j] = max_moves;
-        return max_moves;
+    void solve(vector<vector<int>>& grid, int i, int j, int prev, int move) {
+        if (i >= n || i < 0 || j >= m || j < 0) {
+            return;
+        }
+        if (grid[i][j] <= prev) {
+            return;
+        }
+        if (dp[i][j] != -1) {
+            maxmove=max(dp[i][j],maxmove);
+            dp[i][j]=maxmove;
+            return;
+        }
+        solve(grid, i - 1, j + 1, grid[i][j], move + 1);
+        solve(grid, i, j + 1, grid[i][j], move + 1);
+        solve(grid, i + 1, j + 1, grid[i][j], move + 1);
+        maxmove = max(maxmove, move);
+        dp[i][j] = maxmove;
+        return;
     }
-
     int maxMoves(vector<vector<int>>& grid) {
         n = grid.size();
         m = grid[0].size();
-        dp.assign(n, vector<int>(m, -1)); // Resize dp array based on grid size
-
-        int max_moves = 0;
-
-        // Start DFS from the first column of each row
+        int t = 0;
+        dp.resize(1001, vector<int>(1001, -1));
         for (int i = 0; i < n; i++) {
-            max_moves = max(max_moves, solve(grid, i, 0));
+            solve(grid, i, 0 , 0, 0);
+            t = max(t, maxmove);
+            maxmove=0;
         }
-
-        return max_moves;
+        return t;
     }
 };
