@@ -18,7 +18,7 @@ public:
         int num = 0;
         for (int i = 0; i < 32; i++) {
             if (v[i] > 0)
-                num = num | (1 << i);
+                num = num + (pow(2, i));
         }
         return num;
     }
