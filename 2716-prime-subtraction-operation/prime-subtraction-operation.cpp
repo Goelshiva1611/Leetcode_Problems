@@ -18,34 +18,36 @@ public:
         st.insert(2);
         return st;
     }
+    void seiveprimemethod(vector<bool>& isprimereal) {
+        isprimereal[0] = isprimereal[1] = false;
+        for (int i = 2; i * i < 1000; i++) {
+            if (isprimereal[i] == true) {
+                for (int j = 2 * i; j < 1000; j += i) {
+                    isprimereal[j] = false;
+                }
+            }
+        }
+    }
     bool primeSubOperation(vector<int>& nums) {
         int n = nums.size();
         vector<int> v;
         set<int> st = findallprime();
-        for (int i = n-1; i>=1; i--) {
-            if (nums[i-1] - nums[i] >= 0) {
-                for (int k = 2; k <nums[i-1]; k++) {
-                    if (st.find(k) != st.end()) {
-                        int p=nums[i-1]-k;
-                        if(p-nums[i]<0)
-                        {
-                            nums[i-1]=nums[i-1]-k;
+        vector<bool> isprimereal(1000, true);
+        seiveprimemethod(isprimereal);
+        for (int i = n - 1; i >= 1; i--) {
+            if (nums[i - 1] - nums[i] >= 0) {
+                for (int k = 2; k < nums[i - 1]; k++) {
+                    if (isprimereal[k] == 1) {
+                        int p = nums[i - 1] - k;
+                        if (p - nums[i] < 0) {
+                            nums[i - 1] = nums[i - 1] - k;
                             break;
                         }
                     }
                 }
-                if(nums[i-1]-nums[i]>=0)
-                {
+                if (nums[i - 1] - nums[i] >= 0) {
                     return false;
                 }
-
-            }
-            
-        }
-        for (int i = 0; i < n - 1; i++) {
-            if (nums[i + 1] - nums[i] <= 0) {
-                cout<<"hello";
-                return false;
             }
         }
         return true;
