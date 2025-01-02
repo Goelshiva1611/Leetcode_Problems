@@ -20,17 +20,10 @@ public:
             beforevector.push_back(t);
         }
         for (int i = 0; i < queries.size(); i++) {
-            int l = queries[i][0];
-            int r = queries[i][1];
-            if (l != 0) {
-                int x = beforevector[l - 1];
-                int y = beforevector[r];
-                v.push_back(y - x);
-            } else
-            {
-                int y = beforevector[r];
-                v.push_back(y);
-            }
+            v.push_back((queries[i][0] == 0)
+                            ? beforevector[queries[i][1]]
+                            : beforevector[queries[i][1]] -
+                                  beforevector[queries[i][0] - 1]);
         }
 
         return v;
