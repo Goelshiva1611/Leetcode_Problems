@@ -5,11 +5,10 @@ public:
         forward = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
                    'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
                    's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
-       
 
         int n = shifts.size();
         vector<int> t;
-        t.resize(s.size(),0);
+        t.resize(s.size(), 0);
         for (int i = 0; i < n; i++) {
             int start = shifts[i][0];
             int end = shifts[i][1];
@@ -17,31 +16,29 @@ public:
             if (direction == 1) {
                 t[start] += 1;
                 if (end < s.size() - 1) {
-                    t[end+1] -= 1;
+                    t[end + 1] -= 1;
                 }
             }
             if (direction == 0) {
                 t[start] -= 1;
                 if (end < s.size() - 1) {
-                    t[end+1] += 1;
+                    t[end + 1] += 1;
                 }
             }
         }
-        int sum=0;
-        for(int i=0;i<s.size();i++)
-        {
-            sum+=t[i];
-            cout<<sum;
-            sum=sum%26;
-            int z=s[i]-'a';
-            cout<<" ";
+        int sum = 0;
+        for (int i = 0; i < s.size(); i++) {
+            sum += t[i];
+            cout << sum;
+            sum = sum % 26;
+            int z = s[i] - 'a';
+            cout << " ";
 
-            cout<<z<<endl;
-            if(sum+z>=0)
-            s[i]=forward[(sum+z)%26];
-            else
-            {
-                s[i]=forward[26-abs((z+sum)%26)];
+            cout << z << endl;
+            if (sum + z >= 0)
+                s[i] = forward[(sum + z) % 26];
+            else {
+                s[i] = forward[26 - abs((z + sum) % 26)];
             }
         }
         //  int n = shifts.size();
