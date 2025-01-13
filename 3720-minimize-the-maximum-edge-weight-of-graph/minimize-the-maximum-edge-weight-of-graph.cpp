@@ -16,12 +16,29 @@ public:
             }
         }
     }
-
+    void bfs(unordered_map<int, vector<P>>& adj, vector<bool>& visited,
+             int max) {
+        queue<int> qu;
+        qu.push(0);
+        visited[0] = true;
+        while (!qu.empty()) {
+            int u = qu.front();
+            qu.pop();
+            for (auto& p : adj[u]) {
+                int v = p.first;
+                int wt = p.second;
+                if (!visited[v] && wt <= max) {
+                    visited[v] = true;
+                    qu.push(v);
+                }
+            }
+        }
+    }
     bool canAllReachZero(int n, unordered_map<int, vector<P>>& adj, int mid) {
         // DFS
         vector<bool> visited(n, false);
-        dfs(0, adj, mid, visited);
-
+        // dfs(0, adj, mid, visited);
+        bfs(adj, visited, mid);
         for (int i = 0; i < n; i++) {
             if (visited[i] == false) {
                 return false;
