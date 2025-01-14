@@ -1,26 +1,51 @@
 class Solution {
 public:
     string convert(string s, int numRows) {
-        vector<string> st(numRows, "");
-        int count = 0;
-        int n = numRows;
-        while (count < s.size()) {
-            for (int i = 0; i < n; i++) {
-                if(count==s.size())
-                    break;
-                st[i]=st[i]+s[count];
-                count++;
+        int size = s.size();
+        bool flag = false;
+        int col = 0;
+        while (size > 0) {
+            if (flag == false) {
+                size -= numRows;
+                col++;
+            } else {
+                size -= abs((numRows - 2));
+                col += abs(numRows - 2);
             }
-            for (int i = n - 2; i > 0; i--) {
-                if(count==s.size())
-                    break;
-                st[i] = st[i]+s[count];
-                count++;
-            }
+            flag = !flag;
         }
-        string ans="";
-        for (int i = 0; i <n; i++) {
-            ans += st[i];
+        cout << col;
+        vector<vector<char>> v;
+        v.resize(numRows, vector<char>(col, '!'));
+        bool fl = false;
+        int x = 0;
+        for (int i = 0; i < col;) {
+            if (fl == false) {
+                for (int j = 0; j < numRows; j++) {
+                    if (x < s.size())
+                        v[j][i] = s[x];
+                    x++;
+                }
+                i++;
+            } else {
+                int t = numRows - 2;
+                while (t > 0 && x < s.size()) {
+                    cout << x;
+                    v[t][i] = s[x];
+                    t--;
+                    i++;
+                    x++;
+                }
+            }
+            fl = !fl;
+        }
+        string ans;
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < col; j++) {
+                if (v[i][j] != '!') {
+                    ans += v[i][j];
+                }
+            }
         }
         return ans;
     }
