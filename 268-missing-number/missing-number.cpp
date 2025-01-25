@@ -1,9 +1,18 @@
 class Solution {
 public:
     int missingNumber(vector<int>& nums) {
-        vector<int> v;
-        for (int i = 0; i <= nums.size(); i++)
-            v.push_back(i);
-        return abs(accumulate(nums.begin(), nums.end(), 0)  - accumulate(v.begin(), v.end(), 0));
+        int n = nums.size();
+        int l = 0;
+        int r = n;
+        sort(nums.begin(),nums.end());
+        while (l <r) {
+            int mid = l + (r - l) / 2;
+            if (nums[mid] != mid) {
+                r = mid;
+            } else {
+                l = mid +1;
+            }
+        }
+        return l;
     }
 };
