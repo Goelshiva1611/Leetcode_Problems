@@ -1,5 +1,43 @@
 class Solution {
 public:
+    bool cycle(vector<vector<int>>& graph, vector<bool>& visited,
+               vector<bool>& recursion, int i) {
+        visited[i] = true;
+        recursion[i] = true;
+
+        for (int j = 0; j < graph[i].size(); j++) {
+            if (!visited[graph[i][j]] &&
+                cycle(graph, visited, recursion, graph[i][j])) {
+                return true;
+            } else if (recursion[graph[i][j]]) {
+                return true;
+            }
+        }
+        recursion[i] = false;
+        return false;
+    }
+    vector<int> eventualSafeNodes(vector<vector<int>>& graph) {
+        // detect cycle
+        int n = graph.size();
+        vector<bool> visited(n, false);
+        vector<bool> recursion(n, false);
+        for (int i = 0; i < n; i++) {
+            if (!visited[i]) {
+                cycle(graph, visited, recursion, i);
+            }
+        }
+        vector<int> v;
+        for (int i = 0; i < n; i++) {
+            if (recursion[i] == false) {
+                v.push_back(i);
+            }
+        }
+        return v;
+    }
+};
+
+/* class Solution {
+public:
     vector<int> eventualSafeNodes(vector<vector<int>>& graph) {
         // via toposort
         int n = graph.size();
@@ -42,4 +80,4 @@ public:
         }
         return v;
     }
-};
+};*/
