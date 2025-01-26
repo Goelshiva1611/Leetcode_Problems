@@ -44,19 +44,15 @@ public:
                         }
                     }
                 } else {
-                    int t=0;
-                    for(int l=2;l<p[2].size();)
-                    {
-                        int q=p[2][l]-'0';
-                        if(l+1<p[2].size() && p[2][l+1]!=' ')
-                        {
-                            mentions[q*10+(p[2][l+1]-'0')]++;  
-                            l++;                          
-                        }else
-                        {
-                            mentions[q]++;
+                    int t = 0;
+                    for (int l = 2; l < p[2].size();) {
+                        int q = p[2][l] - '0';
+                        while (l + 1 < p[2].size() && p[2][l + 1] != ' ') {
+                            q = q * 10 + (p[2][l + 1] - '0');
+                            l++;
                         }
-                        l+=4;
+                        mentions[q]++;
+                        l += 4;
                     }
                 }
             } else {
