@@ -1,45 +1,28 @@
 class Solution {
 public:
-
-    bool dfs(unordered_map<int, vector<int>> &adj, int u, int v, vector<bool>& visited) {
-        visited[u] = true;
-
-        if(u == v) {
-            return true;
-        }
-
-        for(int &ngbr : adj[u]) {
-            if(visited[ngbr]) continue;
-
-            if(dfs(adj, ngbr, v, visited)) {
+    bool dfs(unordered_map<int, vector<int>>&mp, vector<bool>& visited,
+                     int node, int parent) {
+        visited[node] = true;
+        for (int i = 0; i < mp[node].size(); i++) {
+            if (!visited[mp[node][i]]) {
+                dfs(mp, visited, mp[node][i], node);
+            } else if (visited[mp[node][i]] && mp[node][i] != parent) {
                 return true;
             }
         }
-
         return false;
-
     }
-
     vector<int> findRedundantConnection(vector<vector<int>>& edges) {
-        int n = edges.size();
-        //number of nodes = n
-        //number of edges = n
-
-        unordered_map<int, vector<int>> adj;
-
-        for(int i = 0; i < n; i++) {
-            int u = edges[i][0];
-            int v = edges[i][1];
-            
-            vector<bool> visited(n, false);
-            if(adj.find(u) != adj.end() && adj.find(v) != adj.end() && dfs(adj, u, v, visited)) {
-                return edges[i];
+        unordered_map<int, vector<int>> mp;
+        for (int i = 0; i < edges.size(); i++) {
+            mp[edges[i][0]].push_back(edges[i][1]);
+            mp[edges[i][1]].push_back(edges[i][0]);
+            vector<bool> visited(edges.size(), false);
+            if(dfs(mp, visited, edges[i][0], -1))
+            {
+                return {edges[i][0],edges[i][1]};
             }
-
-            adj[u].push_back(v);
-            adj[v].push_back(u);
         }
-
         return {};
     }
 };
