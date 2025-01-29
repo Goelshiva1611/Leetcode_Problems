@@ -1,23 +1,19 @@
 class Solution {
 public:
-    int BFS(int start, unordered_map<int, vector<int>>& adj,
-            vector<bool>& visited) {
+    int BFS(int start, unordered_map<int, vector<int>>& adj, int end) {
         queue<pair<int, int>> que; //{node, path length}
         que.push({start, 0});
         int maxDistance = 0;
-
         while (!que.empty()) {
             auto [currNode, dist] = que.front();
             que.pop();
             maxDistance = dist;
             for (auto& ngbr : adj[currNode]) {
-                if (!visited[ngbr]) {
-                    visited[ngbr] = true;
+                if (ngbr != end) {
                     que.push({ngbr, dist + 1});
                 }
             }
         }
-
         return maxDistance;
     }
 
@@ -63,13 +59,10 @@ public:
                             max(longestCycleEmplCount, cycleLength);
 
                         if (cycleLength == 2) { // happy couple case
-                            // currNode <-> nextNode = 2 nodes
-                            vector<bool> visitedNodes(n, false);
-                            visitedNodes[currNode] = true;
-                            visitedNodes[nextNode] = true;
+
                             happyCoupleEmplCount +=
-                                2 + BFS(currNode, adj, visitedNodes) +
-                                BFS(nextNode, adj, visitedNodes);
+                                2 + BFS(currNode, adj, nextNode) +
+                                BFS(nextNode, adj, currNode);
                         }
                         break;
                     }
