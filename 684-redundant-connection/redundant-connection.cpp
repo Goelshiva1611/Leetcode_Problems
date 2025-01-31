@@ -1,52 +1,49 @@
+class Dsu {
+public:
+    vector<int> parent;
+    vector<int> rank;
+    Dsu(int n) {
+        parent.resize(n, 0);
+        rank.resize(n, 0);
+        for (int i = 0; i < n; i++) {
+            parent[i] = i;
+        }
+    }
+    int find(int i) {
+        if (i == parent[i]) {
+            return i;
+        }
+        return parent[i] = find(parent[i]);
+    }
+    void Union(int a, int b) {
+        int a_parent = find(a);
+        int b_parent = find(b);
+        if (a_parent == b_parent) {
+            return;
+        }
+        if (rank[a_parent] < rank[b_parent]) {
+            parent[a_parent] = b_parent;
+        } else if (rank[a_parent] > rank[b_parent]) {
+            parent[b_parent] = a_parent;
+        } else {
+            parent[a_parent] = b_parent;
+            rank[b_parent] += 1;
+        }
+        return;
+    }
+};
 class Solution {
 public:
-    bool dfs(unordered_map<int, vector<int>> mp, vector<bool>& visited,
-             int node, int parent) {
-        if (node == parent) {
-            return true;
-        }
-        cout << node;
-        cout << parent;
-        visited[node] = true;
-        for (int i = 0; i < mp[node].size(); i++) {
-            if (!visited[mp[node][i]] &&
-                dfs(mp, visited, mp[node][i], parent)) {
-                return true;
-            }
-        }
-        return false;
-    }
-    bool bfs(unordered_map<int, vector<int>>& mp, vector<bool>& visited,
-             int node, int end) {
-        queue<int> qu;
-        qu.push(node);
-        while (!qu.empty()) {
-            int n = qu.front();
-            qu.pop();
-            for (int i = 0; i < mp[n].size(); i++) {
-                int a = mp[n][i];
-                if (a == end) {
-                    return true;
-                }
-                if (!visited[a]) {
-                    visited[a] = true;
-                    qu.push(a);
-                }
-            }
-        }
-        return false;
-    }
     vector<int> findRedundantConnection(vector<vector<int>>& edges) {
-        unordered_map<int, vector<int>> mp;
-        for (int i = 0; i < edges.size(); i++) {
-            vector<bool> visited(edges.size(), false);
-            if (mp.find(edges[i][1]) != mp.end() &&
-                mp.find(edges[i][0]) != mp.end() &&
-                bfs(mp, visited, edges[i][1], edges[i][0])) {
-                return {edges[i][0], edges[i][1]};
+        int n = edges.size();
+        Dsu dsu(n);
+        for (auto it : edges) {
+            int a = it[0];
+            int b = it[1];
+            if (dsu.find(a - 1) == dsu.find(b - 1)) {
+                return it;
             }
-            mp[edges[i][0]].push_back(edges[i][1]);
-            mp[edges[i][1]].push_back(edges[i][0]);
+            dsu.Union(a - 1, b - 1);
         }
         return {};
     }
