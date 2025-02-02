@@ -30,7 +30,8 @@ public:
     }
 };
 
-/* bool check(vector<int>& nums) {
+/*
+bool check(vector<int>& nums) {
         int dec = 0;
         vector<int> sorted = nums;
         sort(sorted.begin(), sorted.end());
@@ -42,9 +43,14 @@ public:
                     return false;
             }
         }
+
+        if(nums[0]-nums[nums.size()-1]<0 && sorted!=nums)
+        {
+            return false;
+        }
         return true;
-    }*/
-/* */
+    }
+/*
 
 /*
 bool check(vector<int>& nums) {
