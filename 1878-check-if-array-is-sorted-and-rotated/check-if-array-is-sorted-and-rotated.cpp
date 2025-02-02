@@ -1,6 +1,31 @@
 class Solution {
 public:
     bool check(vector<int>& nums) {
+        vector<int> p;
+        vector<int> t;
+        vector<int> s;
+        s = nums;
+        sort(s.begin(), s.end());
+        int x = 0;
+        for (int i = 1; i < nums.size(); i++) {
+            if (nums[i] - nums[i - 1] < 0) {
+                p.push_back(nums[i - 1]);
+                x = i;
+                break;
+            }
+            p.push_back(nums[i - 1]);
+        }
+        for (int i = x; i < nums.size(); i++)
+            t.push_back(nums[i]);
+        if (x != 0) {
+            for (int i = 0; i < p.size(); i++)
+                t.push_back(p[i]);
+        }
+        return (t == s) ? true : false;
+    }
+};
+
+/* bool check(vector<int>& nums) {
         vector<int> x = nums;
         sort(x.begin(), x.end());
         vector<int> p(2 * x.size(), 0);
@@ -27,5 +52,4 @@ public:
                 qu.push(p[l]);
         }
         return false;
-    }
-};
+    }*/
