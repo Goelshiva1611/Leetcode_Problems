@@ -8,7 +8,7 @@ public:
         int m = heightMap.size();
         int n = heightMap[0].size();
 
-        priority_queue<PP, vector<PP>, greater<>> boundaryCells;
+        priority_queue<PP, vector<PP>, greater<PP>> boundaryCells;
 
         vector<vector<bool>> visited(m, vector<bool>(n, false));
 
