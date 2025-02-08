@@ -10,14 +10,12 @@ public:
             int b = queries[i][1];
             if (balls.find(a) != balls.end()) {
                 int prev = balls[a];
-                balls[a] = b;
                 colors[prev]--;
                 if (colors[prev] == 0) {
                     colors.erase(prev);
                 }
-                cout<<colors.size();
             }
-            balls[a]=b;
+            balls[a] = b;
             colors[b]++;
             ans.push_back(colors.size());
         }
