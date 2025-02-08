@@ -17,6 +17,9 @@ public:
         food_rating[food] = newRating;
     }
     string highestRated(string cuisine) {
-        return cuisine_ratings[cuisine].begin()->second;
+        cout<<cuisine_ratings[cuisine].begin()->second;
+        // pair<int ,string>z=(*cuisine_ratings[cuisine].begin());
+        // cout<<z.second;
+        return (*cuisine_ratings[cuisine].begin()).second;
     }
 };
