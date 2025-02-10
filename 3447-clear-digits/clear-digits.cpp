@@ -1,7 +1,20 @@
 class Solution {
 public:
     string clearDigits(string s) {
+        string ans = "";
+        for (int i = 0; i < s.size(); i++) {
+            (s[i] >= 48 && s[i] <= 57 && ans.size() > 0) ? ans.pop_back()
+                                                         : ans.push_back(s[i]);
+        }
+        return ans;
+    }
+};
+/*
+class Solution {
+public:
+    string clearDigits(string s) {
         int n = s.size();
+        cout<<p;
         vector<char> v;
         for (int i = 0; i < n; i++) {
             if (s[i] >= 48 && s[i] <= 57) {
@@ -20,3 +33,4 @@ public:
         return ans;
     }
 };
+*/
