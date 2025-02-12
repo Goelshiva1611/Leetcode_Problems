@@ -74,11 +74,9 @@ public:
                             p += data[i];
                             i++;
                         }
-                        if (!p.empty()) {
-                            TreeNode* first = new TreeNode(stoi(p));
-                            qu.push(first);
-                            newnode->left = first;
-                        }
+                        TreeNode* first = new TreeNode(stoi(p));
+                        qu.push(first);
+                        newnode->left = first;
                     }
                 }
                 i++;
@@ -92,11 +90,9 @@ public:
                             p += data[i];
                             i++;
                         }
-                        if (!p.empty()) {
-                            TreeNode* first = new TreeNode(stoi(p));
-                            qu.push(first);
-                            newnode->right = first;
-                        }
+                        TreeNode* first = new TreeNode(stoi(p));
+                        qu.push(first);
+                        newnode->right = first;
                     }
                 }
                 i++;
