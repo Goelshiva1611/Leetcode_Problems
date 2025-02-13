@@ -1,22 +1,21 @@
 class Solution {
 public:
+    typedef priority_queue<int> pp;
     int minStoneSum(vector<int>& nums, int k) {
-        priority_queue<long long int> pq;
-        long long int score = 0;
-        long long int t = nums.size();
-        while (t != 0) {
-            pq.push(nums[t - 1]);
-            t--;
+        int n=nums.size();
+        pp p(nums.begin(),nums.end());
+        for(int i=0;i<k;i++)
+        {
+            int a=p.top();
+            p.pop();
+            p.push(a-floor(a/2));
         }
-        for (int i = 0; i < k; i++) {
-            long long int a = pq.top();
-            pq.pop();
-            pq.push(a - floor(a * 1.0 / 2 * 1.0));
+        int sum=0;
+        while(!p.empty())
+        {
+            sum+=p.top();
+            p.pop();
         }
-        while (!pq.empty()) {
-            score += pq.top();
-            pq.pop();
-        }
-        return score;
+        return sum;
     }
 };
