@@ -7,21 +7,17 @@ public:
         if (currsum > num)
             return false;
 
-        // if (t[i][currsum] != -1) //we have repeating subproblems. Draw tree
-        // diagram of "1296"
-        //     return t[i][currsum];
+        if (t[i][currsum] != -1)
+            return t[i][currsum];
 
         for (int j = i; j < s.length(); j++) {
             string currentString = s.substr(i, j - i + 1);
             int addend = stoi(currentString);
-
-            if (check(j + 1, currsum + addend, s, num, t) == true)
-            {
+            if (check(j + 1, currsum + addend, s, num, t) == true) {
                 return true;
             }
         }
-
-        return false;
+        return t[i][currsum] = false;
     }
 
     int punishmentNumber(int n) {
