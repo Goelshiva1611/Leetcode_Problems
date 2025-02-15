@@ -4,9 +4,11 @@ public:
         if(num == 0) {
             return currnum == target;
         }
+        if(currnum>target)
+            return false;
         
         return check(num / 10, currnum + num % 10, target) ||
-               check(num / 100, currnum + num % 100, target) ||
+               check(num / 100, currnum + num % 100, target)||
                check(num / 1000, currnum + num % 1000, target) ||
                check(num / 10000, currnum + num % 10000, target);
     }
