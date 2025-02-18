@@ -13,19 +13,14 @@ public:
             char newchar = p[i];
             if (v[j] == 1)
                 continue;
-            if (newchar == 'I' && j > (ans[ans.size() - 1] - '0')) {
+            if ((newchar == 'I' && j > (ans[ans.size() - 1] - '0')) ||
+                (newchar == 'D' && (ans[ans.size() - 1] - '0') > j)) {
                 v[j] = 1;
                 ans += to_string(j);
                 solve(p, ans, i + 1);
                 v[j] = 0;
                 ans.pop_back();
-            } else if (newchar == 'D' && (ans[ans.size() - 1] - '0') > j) {
-                v[j] = 1;
-                ans += to_string(j);
-                solve(p, ans, i + 1);
-                v[j] = 0;
-                ans.pop_back();
-            }
+            } 
         }
     }
     string smallestNumber(string pattern) {
