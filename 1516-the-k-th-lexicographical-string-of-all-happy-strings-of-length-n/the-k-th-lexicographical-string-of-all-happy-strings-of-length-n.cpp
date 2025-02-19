@@ -2,9 +2,13 @@ class Solution {
 public:
     vector<string> result;
     vector<char> p;
+    int t=0;
     void solve(int n, string ans) {
+        if(result.size()>t)
+        {
+            return;            
+        }
         if (ans.size() == n) {
-            cout<<ans;
             result.push_back(ans);
             return;
         }
@@ -23,17 +27,17 @@ public:
         }
     }
     string getHappyString(int n, int k) {
-        // happy string a b c
+        // happy string a b c waliiii
+        t=k;
         string ans = "";
         p.resize(3, ' ');
         char ch = 'a';
         for (int i = 0; i < 3; i++) {
             p[i] = ch;
             ch++;
-            cout<<p[i];
+            cout << p[i];
         }
         solve(n, ans);
-        cout<<result.size();
-        return (result.size() < k) ? "" : result[k -1];
+        return (result.size() < k) ? "" : result[k - 1];
     }
 };
