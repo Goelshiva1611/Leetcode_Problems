@@ -21,10 +21,10 @@ public:
         while (high - low >1e-5) {
             mid = low + (high - low) / 2;
             auto area = getArea(squares, mid);
-            if (area.first < area.second)
-                low = mid;
-            else
+            if (area.first >= area.second)
                 high = mid;
+            else
+                low = mid;
         }
         return round(high*1e5)/1e5;
     }
