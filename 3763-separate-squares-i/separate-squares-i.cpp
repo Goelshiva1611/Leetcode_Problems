@@ -26,6 +26,6 @@ public:
             else
                 low = mid;
         }
-        return round(high*1e5)/1e5;
+        return round(low*1e5)/1e5;
     }
 };
