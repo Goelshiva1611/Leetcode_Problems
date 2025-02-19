@@ -18,7 +18,7 @@ public:
     double separateSquares(vector<vector<int>>& squares) {
         double low = 0, high = 2e9, mid = 0, ans = 0, possibleMid = 0;
         sort(squares.begin(), squares.end());
-        while (high - low >1e-5) {
+        while (low-high<-1e-5) {
             mid = low + (high - low) / 2;
             auto area = getArea(squares, mid);
             if (area.first >= area.second)
