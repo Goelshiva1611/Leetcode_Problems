@@ -3,14 +3,21 @@ public:
     vector<string> result;
     set<string> st;
     int size = 0;
+    bool flag = false;
     void solve(string ans) {
-        if (ans.size()==size) {
+
+        if (ans.size() == size) {
             result.push_back(ans);
+            if (st.find(ans) == st.end()) {
+                flag = true;
+            }
             return;
         }
         for (int i = 0; i <= 1; i++) {
             ans += to_string(i);
-            solve(ans);
+            if (flag == false) {
+                solve(ans);
+            }
             ans.pop_back();
         }
     }
@@ -22,10 +29,9 @@ public:
         }
         string ans = "";
         solve(ans);
-        for(int i=0;i<result.size();i++)
-        {
-            if(st.find(result[i])==st.end())
-            {
+        cout<<result.size();
+        for (int i = 0; i < result.size(); i++) {
+            if (st.find(result[i]) == st.end()) {
                 return result[i];
             }
         }
