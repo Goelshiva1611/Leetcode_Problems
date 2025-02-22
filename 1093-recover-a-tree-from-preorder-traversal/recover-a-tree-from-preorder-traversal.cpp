@@ -2,20 +2,18 @@ class Solution {
 public:
     int n;
 
-    void solve(TreeNode* &root, const string& traversal, int& i, int depth) {
+    void solve(TreeNode*& root, const string& traversal, int& i, int depth) {
         if (i >= n)
             return;
-        int j = i;
-        while (j < n && traversal[j] == '-') {
-            j++;
+        int dash = 0;
+        while (i < n && traversal[i] == '-') {
+            dash++;
+            i++;
         }
-
-        int dash = j - i;
-
         if (depth != dash) {
+            i -= dash;
             return;
         }
-        i += dash;
         int value = 0;
         string p = "";
         while (i < n && traversal[i] != '-') {
@@ -23,9 +21,7 @@ public:
             i++;
         }
         value = stoi(p);
-
         root = new TreeNode(value);
-
         solve(root->left, traversal, i, depth + 1);
         solve(root->right, traversal, i, depth + 1);
     }
