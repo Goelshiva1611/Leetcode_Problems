@@ -2,10 +2,9 @@ class Solution {
 public:
     int n;
 
-    TreeNode* solve(const string& traversal, int& i, int depth) {
+    void solve(TreeNode* &root, const string& traversal, int& i, int depth) {
         if (i >= n)
-            return NULL;
-
+            return;
         int j = i;
         while (j < n && traversal[j] == '-') {
             j++;
@@ -14,7 +13,7 @@ public:
         int dash = j - i;
 
         if (depth != dash) {
-            return NULL;
+            return;
         }
         i += dash;
         int value = 0;
@@ -25,17 +24,17 @@ public:
         }
         value = stoi(p);
 
-        TreeNode* root = new TreeNode(value);
+        root = new TreeNode(value);
 
-        root->left = solve(traversal, i, depth + 1);
-        root->right = solve(traversal, i, depth + 1);
-
-        return root;
+        solve(root->left, traversal, i, depth + 1);
+        solve(root->right, traversal, i, depth + 1);
     }
 
     TreeNode* recoverFromPreorder(string traversal) {
         n = traversal.length();
         int i = 0;
-        return solve(traversal, i, 0);
+        TreeNode* newnode = new TreeNode(0);
+        solve(newnode->left, traversal, i, 0);
+        return newnode->left;
     }
 };
