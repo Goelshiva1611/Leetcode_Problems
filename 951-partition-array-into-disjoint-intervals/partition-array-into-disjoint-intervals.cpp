@@ -12,15 +12,13 @@ public:
         }
         for (int i = 0; i < n; i++) {
             maxpq.push(nums[i]);
-            while (!minpq.empty() && minpq.top().second <= i) {
+            while (!minpq.empty() && minpq.top().second <= i)
                 minpq.pop();
-            }
             if (!minpq.empty() && minpq.top().first < maxpq.top()) {
                 if (minpq.top().first == nums[i] && minpq.top().second == i)
                     minpq.pop();
-            } else {
+            } else
                 return i + 1;
-            }
         }
         return -1;
     }
