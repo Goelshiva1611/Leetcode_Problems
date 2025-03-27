@@ -8,8 +8,7 @@ public:
             mp[s[i]]++;
             if (mp[s[i]] > 1) {
                 count++;
-                unordered_map<char, int> mp1;
-                mp = mp1;
+                mp = {};
                 mp[s[i]]++;
             }
         }
