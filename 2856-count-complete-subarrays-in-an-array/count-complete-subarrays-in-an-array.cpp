@@ -11,7 +11,7 @@ public:
         int dist = mp.size();
         int answer = 0;
         unordered_map<int, int> mp2;
-        while (j < n) {
+        while (i<=j) {
             while (j < n && mp2.size() != dist) {
                 mp2[nums[j]]++;
                 j++;
@@ -24,16 +24,13 @@ public:
                 mp2.erase(nums[i]);
             i++;
         }
-        bool flag = true;
-        while (i < j && mp2.size() == dist) {
-            mp2[nums[i]]--;
-            if (mp2[nums[i]] == 0) {
-                mp2.erase(nums[i]);
-            }
-            i++;
-            answer += 1;
-            flag = false;
-        }
+        // while (i < j && mp2.size() == dist) {
+        //     mp2[nums[i]]--;
+        //     if (mp2[nums[i]] == 0)
+        //         mp2.erase(nums[i]);
+        //     i++;
+        //     answer += 1;
+        // }
         return answer;
     }
 };
