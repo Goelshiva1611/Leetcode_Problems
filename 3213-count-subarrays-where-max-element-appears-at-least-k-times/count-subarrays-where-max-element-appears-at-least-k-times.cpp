@@ -11,16 +11,20 @@ public:
         int i = 0;
         long long sum = 0;
         long long count = 0;
-        while (j < nums.size()) {
+        while (j < n) {
             sum += nums[j];
-            while (sum > k - 1) {
-                sum -= nums[i];
-                i++;
+            if (sum == k) {
+                count += n - j;
+                while (sum == k) {
+                    sum -= nums[i];
+                    i++;
+                    if (sum == k) {
+                        count += n - j;
+                    }
+                }
             }
-            count += j - i + 1;
             j++;
         }
-        long long t = (long long)n * (n + 1) / 2;
-        return t - count;
+        return count;
     }
 };
