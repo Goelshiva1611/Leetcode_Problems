@@ -3,16 +3,10 @@ public:
     long long countSubarrays(vector<int>& nums, int k) {
         int m = 0;
         int n = nums.size();
-        for (int i = 0; i < n; i++) {
-            m = max(m, nums[i]);
-        }
-        for (int i = 0; i < nums.size(); i++) {
-            if (nums[i] == m) {
-                nums[i] = 1;
-            } else {
-                nums[i] = 0;
-            }
-        }
+        m = *max_element(nums.begin(), nums.end());
+        for (int i = 0; i < nums.size(); i++)
+            nums[i] = (nums[i] == m) ? 1 : 0;
+
         int j = 0;
         int i = 0;
         long long sum = 0;
