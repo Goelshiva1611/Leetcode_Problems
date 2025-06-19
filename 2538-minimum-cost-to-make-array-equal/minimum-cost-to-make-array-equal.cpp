@@ -17,7 +17,7 @@ public:
             ll mid = (low + high) / 2;
             ll cost1 = cost_cal(nums, cost, mid);
             ll cost2 = cost_cal(nums, cost, mid + 1);
-            if (cost1 <= cost2) {
+            if (cost1 < cost2) {
                 answer = cost1;
                 high = mid-1;
             } else {
