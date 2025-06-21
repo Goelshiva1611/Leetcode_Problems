@@ -26,17 +26,19 @@ public:
         int low = *min_element(bloomDay.begin(), bloomDay.end());
         int high = *max_element(bloomDay.begin(), bloomDay.end());
         int answer = -1;
-        while (low <= high) {
+        if(1ll*m*k>bloomDay.size())
+            return -1;
+        while (low <high) {
             int mid = low + (high - low) / 2;
             cout << mid;
             cout << endl;
             if (find(bloomDay, m, k, mid)) {
                 answer = mid;
-                high = mid - 1;
+                high = mid ;
             } else {
                 low = mid + 1;
             }
         }
-        return answer;
+        return high;
     }
 };
