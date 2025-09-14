@@ -1,21 +1,19 @@
 class Solution {
 public:
     vector<vector<int>> generateSchedule(int n) {
-
+        vector<vector<bool>> matches(n, vector<bool>(n, false));
+        vector<vector<int>> schedule;
+        vector<int> gamesPlayed(n, 0);
+        vector<int> teams;
+        int tm = n * (n - 1);
+        int lt1 = -1;
+        int lt2 = -1;
         if (n <= 4) {
             return {};
         }
-        int tm = n * (n - 1);
-        vector<vector<int>> schedule;
-        vector<int> teams;
-        vector<int> gamesPlayed(n, 0);
         for (int i = 0; i < n; i++) {
             teams.push_back(i);
         }
-        vector<vector<bool>> matches;
-        matches.resize(n, vector<bool>(n, false));
-        int lt1 = -1;
-        int lt2 = -1;
         for (int day = 0; day < tm; day++) {
             unordered_set<int> available;
             for (int team : teams) {
@@ -41,7 +39,7 @@ public:
                     }
                 }
             }
-            if (Firstteam == -1 || Secondteam == -1)
+            if (Firstteam == -1 && Secondteam == -1)
                 return {};
             schedule.push_back({Firstteam, Secondteam});
             matches[Firstteam][Secondteam] = true;
