@@ -5,10 +5,8 @@ public:
         for (int i = 0; i < brokenLetters.size(); i++) {
             st.insert(brokenLetters[i]);
         }
-        int n = text.size();
-        int answer = 0;
-        int s = 0;
-        for (int i = 0; i < n;) {
+        int n = text.size(), answer = 0, s = 0;
+        for (int i = 0; i < n; i++) {
             if (st.find(text[i]) != st.end()) {
                 while (i < n && text[i] != ' ')
                     i++;
@@ -16,7 +14,6 @@ public:
             }
             if (text[i] == ' ')
                 s++;
-            i++;
         }
         return s + 1 - answer;
     }
