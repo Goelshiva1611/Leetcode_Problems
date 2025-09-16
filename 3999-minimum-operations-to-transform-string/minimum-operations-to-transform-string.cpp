@@ -4,7 +4,7 @@ public:
         int ans = INT_MIN;
         for (auto it : s) {
             char a = it;
-            int p = 26 - (a - 'a');
+            int p = (26 - (a - 'a'));
             if (p != 26)
                 ans = max(ans, p);
             else
