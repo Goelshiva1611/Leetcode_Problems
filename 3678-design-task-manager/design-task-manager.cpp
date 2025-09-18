@@ -28,12 +28,6 @@ public:
         mp.erase(taskId);
         st.erase({-s[taskId], -taskId});
         s.erase(taskId);
-        pair<int, int> p = *st.begin();
-        int pid = abs(p.first);
-        int tid = abs(p.second);
-        cout << pid;
-        cout << tid;
-        cout << endl;
     }
 
     int execTop() {
